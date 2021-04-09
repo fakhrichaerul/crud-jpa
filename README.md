@@ -1,4 +1,4 @@
-# Aplikasi Microservices User dan Department
+# Aplikasi Crud Spring Data JPA
 
 Cara menjalankan :
 
