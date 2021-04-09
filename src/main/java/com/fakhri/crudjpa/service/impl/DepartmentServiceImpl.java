@@ -127,7 +127,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentResponseDto findByDepartmentName(String departmentName) throws Exception {
 
-        Optional<Department> findByDepartmentName = departmentRepository.findDepartmentNameBySql(departmentName);
+        Optional<Department> findByDepartmentName = departmentRepository.findDepartmentNameByHql(departmentName);
 
         if(findByDepartmentName.isEmpty()){
             throw new Exception("Department Name not found");
