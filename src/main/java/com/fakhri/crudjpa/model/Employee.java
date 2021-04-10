@@ -17,6 +17,7 @@ public class Employee {
     private String name;
     @Column(name = "address")
     private String address;
-    @Column(name = "department_id")
-    private Integer departmentId;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 }
