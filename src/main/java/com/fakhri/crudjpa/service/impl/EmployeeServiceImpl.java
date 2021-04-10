@@ -1,6 +1,5 @@
 package com.fakhri.crudjpa.service.impl;
 
-import com.fakhri.crudjpa.dto.DepartmentRequestDto;
 import com.fakhri.crudjpa.dto.DepartmentResponseDto;
 import com.fakhri.crudjpa.dto.EmployeeRequestDto;
 import com.fakhri.crudjpa.dto.EmployeeResponseDto;
@@ -23,28 +22,28 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
     private DepartmentRepository departmentRepository;
 
-    private Employee buildEmployeeModelFromRequest(EmployeeRequestDto employee, Department department) {
-        Employee employeeModel = new Employee();
-        employeeModel.setName(employee.getName());
-        employeeModel.setAddress(employee.getAddress());
-        employeeModel.setDepartment(department);
-        return employeeModel;
+    private Employee buildEmployeeModelFromRequest(EmployeeRequestDto employeeRequestDto, Department department) {
+        Employee employee = new Employee();
+        employee.setName(employeeRequestDto.getName());
+        employee.setAddress(employeeRequestDto.getAddress());
+        employee.setDepartment(department);
+        return employee;
     }
 
-    private EmployeeResponseDto buildEmployeeResponseFromModel(Employee employeeModel, DepartmentResponseDto departmentResponseDto) {
-        EmployeeResponseDto responseDto = new EmployeeResponseDto();
-        responseDto.setId(employeeModel.getId());
-        responseDto.setName(employeeModel.getName());
-        responseDto.setAddress(employeeModel.getAddress());
-        responseDto.setDepartment(departmentResponseDto);
-        return responseDto;
+    private EmployeeResponseDto buildEmployeeResponseFromModel(Employee employee, DepartmentResponseDto departmentResponseDto) {
+        EmployeeResponseDto employeeResponse = new EmployeeResponseDto();
+        employeeResponse.setId(employee.getId());
+        employeeResponse.setName(employee.getName());
+        employeeResponse.setAddress(employee.getAddress());
+        employeeResponse.setDepartment(departmentResponseDto);
+        return employeeResponse;
     }
 
     private DepartmentResponseDto buildDepartmentResponseFromModel(Department department) {
-        DepartmentResponseDto departmentResponseDto = new DepartmentResponseDto();
-        departmentResponseDto.setId(department.getId());
-        departmentResponseDto.setDepartmentName(department.getDepartmentName());
-        return departmentResponseDto;
+        DepartmentResponseDto departmentResponse = new DepartmentResponseDto();
+        departmentResponse.setId(department.getId());
+        departmentResponse.setDepartmentName(department.getDepartmentName());
+        return departmentResponse;
     }
 
     @Autowired
@@ -92,11 +91,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         DepartmentResponseDto departmentResponseDto = buildDepartmentResponseFromModel(department);
 
-        EmployeeResponseDto responseDto = new EmployeeResponseDto();
-        responseDto.setId(savedEmployee.getId());
-        responseDto.setName(savedEmployee.getName());
-        responseDto.setAddress(savedEmployee.getAddress());
-        responseDto.setDepartment(departmentResponseDto);
+        EmployeeResponseDto responseDto = buildEmployeeResponseFromModel(savedEmployee, departmentResponseDto);
 
         return responseDto;
     }
@@ -166,15 +161,9 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new Exception("Employee name not found");
         }
 
-        DepartmentResponseDto departmentResponseDto = new DepartmentResponseDto();
-        departmentResponseDto.setId(findByName.get().getDepartment().getId());
-        departmentResponseDto.setDepartmentName(findByName.get().getDepartment().getDepartmentName());
+        DepartmentResponseDto departmentResponseDto = buildDepartmentResponseFromModel(findByName.get().getDepartment());
 
-        EmployeeResponseDto responseDto = new EmployeeResponseDto();
-        responseDto.setName(findByName.get().getName());
-        responseDto.setId(findByName.get().getId());
-        responseDto.setAddress(findByName.get().getAddress());
-        responseDto.setDepartment(departmentResponseDto);
+        EmployeeResponseDto responseDto = buildEmployeeResponseFromModel(findByName.get(), departmentResponseDto);
 
         return responseDto;
     }
