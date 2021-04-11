@@ -15,17 +15,9 @@ Cara menjalankan :
     mvn spring-boot:run
     ```
 
-3. Template request url
+3. Documentasi Rest API dapat dilihat di url :
 
-    ```
-    http://localhost:8080/department
-    ```
-
-   Template request json
-
-    ```json
-    {
-    "departmentName":"IT"
-    }
-    ```
+   ```
+   http://localhost:8080/swagger-ui.html
+   ```
    

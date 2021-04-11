@@ -22,6 +22,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
+        this.employeeRepository = employeeRepository;
+        this.departmentRepository = departmentRepository;
+    }
+
     private Employee buildEmployeeModelFromRequest(EmployeeRequestDto employeeRequestDto, Department department) {
         Employee employee = new Employee();
         employee.setName(employeeRequestDto.getName());
@@ -44,12 +50,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         departmentResponse.setId(department.getId());
         departmentResponse.setDepartmentName(department.getDepartmentName());
         return departmentResponse;
-    }
-
-    @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
-        this.employeeRepository = employeeRepository;
-        this.departmentRepository = departmentRepository;
     }
 
     @Override
