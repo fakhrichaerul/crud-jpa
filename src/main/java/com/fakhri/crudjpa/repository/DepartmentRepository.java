@@ -16,7 +16,7 @@ public interface DepartmentRepository extends CrudRepository<Department, Integer
     Optional<Department> findByDepartmentName(String departmentName);
 
     // Query menggunakan HQL
-    @Query(value = "select d from Department d where d.departmentName = :departmentName")
+    @Query(value = "select d from Department d where d.departmentName like %:departmentName%")
     Optional<Department> findDepartmentNameByHql(@Param("departmentName") String departmentName);
 
     // Query enggunakan SQL Native
