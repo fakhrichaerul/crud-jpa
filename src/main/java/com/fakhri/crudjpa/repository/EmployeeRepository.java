@@ -12,14 +12,14 @@ import java.util.Optional;
 public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
 
     // Query menggunakan JPA
-    Optional<Employee> findByDepartmentId(String departmentId);
+    Optional<Employee> findByAddress(String departmentAddress);
 
     // Query menggunakan HQL
     @Query(value = "SELECT e FROM Employee e WHERE e.name = :name")
     Optional<Employee> findNameByHql(@Param("name") String name);
 
     // Query menggunakan SQL Native
-    @Query(value = "SELECT * FROM employee e WHERE e.name = :name", nativeQuery = true)
+    @Query(value = "SELECT * FROM employee e WHERE e.name iLIKE %:name%", nativeQuery = true)
     Optional<Employee> findNameBySql(@Param("name") String name);
 
     // Menggunakan Specification
