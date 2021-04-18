@@ -12,11 +12,14 @@ import java.util.Optional;
 
 public interface DepartmentRepository extends CrudRepository<Department, Integer> {
 
-    // Query Menggunakan HQL
+    // Query menggunakan JPA
+    Optional<Department> findByDepartmentName(String departmentName);
+
+    // Query menggunakan HQL
     @Query(value = "select d from Department d where d.departmentName = :departmentName")
     Optional<Department> findDepartmentNameByHql(@Param("departmentName") String departmentName);
 
-    // Query Menggunakan SQL Native
+    // Query enggunakan SQL Native
     @Query(value = "SELECT * FROM department d WHERE d.department_name = :departmentName", nativeQuery = true)
     Optional<Department> findDepartmentNameBySql(@Param("departmentName") String departmentName);
 

@@ -11,6 +11,9 @@ import java.util.Optional;
 
 public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
 
+    // Query menggunakan JPA
+    Optional<Employee> findByDepartmentId(String departmentId);
+
     // Query menggunakan HQL
     @Query(value = "SELECT e FROM Employee e WHERE e.name = :name")
     Optional<Employee> findNameByHql(@Param("name") String name);
