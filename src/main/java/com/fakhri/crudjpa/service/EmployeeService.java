@@ -15,7 +15,7 @@ public interface EmployeeService {
 
     List<EmployeeResponseDto> read();
 
-    List<EmployeeResponseDto> findByNames(String name);
+    List<EmployeeResponseDto> findByNameList(String name);
 
     EmployeeResponseDto findByName(String name) throws Exception;
 }

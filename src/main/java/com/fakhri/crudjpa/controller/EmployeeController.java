@@ -41,12 +41,12 @@ public class EmployeeController {
         return employeeService.read();
     }
 
-    @GetMapping("/find-by-name-by-spec")
+    @GetMapping("/find-by-name-with-spec")
     public List<EmployeeResponseDto> readByParam(@RequestParam(name = "name") String name) {
-        return employeeService.findByNames(name);
+        return employeeService.findByNameList(name);
     }
 
-    @GetMapping("/find-by-name")
+    @GetMapping("/find-by-name-with-sql")
     public EmployeeResponseDto findEmployeeByName(@RequestParam(name = "name") String name) throws Exception {
         return employeeService.findByName(name);
     }

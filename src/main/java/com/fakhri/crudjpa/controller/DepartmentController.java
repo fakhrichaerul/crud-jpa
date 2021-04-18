@@ -42,12 +42,12 @@ public class DepartmentController {
         return departmentService.read();
     }
 
-    @GetMapping("/find-by-name-by-spec")
+    @GetMapping("/find-by-name-with-spec")
     public List<DepartmentResponseDto> readByParam(@RequestParam(name = "departmentName") String departmentName) {
         return departmentService.findByDepartmentNameList(departmentName);
     }
 
-    @GetMapping("/find-by-name")
+    @GetMapping("/find-by-name-with-hql")
     public  DepartmentResponseDto findDepartmentByName(@RequestParam(name = "departmentName") String departmentName) throws Exception{
         return departmentService.findByDepartmentName(departmentName);
     }

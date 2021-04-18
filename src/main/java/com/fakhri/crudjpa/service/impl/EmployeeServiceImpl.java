@@ -135,7 +135,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeResponseDto> findByNames(String name) {
+    public List<EmployeeResponseDto> findByNameList(String name) {
 
         List<Employee> employees = employeeRepository.findAll(specification(name));
 
@@ -155,7 +155,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeResponseDto findByName(String name) throws Exception {
 
-        Optional<Employee> findByName = employeeRepository.findNameBySql(name);
+        Optional<Employee> findByName = employeeRepository.findByNameWithSql(name);
 
         if (findByName.isEmpty()) {
             throw new Exception("Employee name not found");
