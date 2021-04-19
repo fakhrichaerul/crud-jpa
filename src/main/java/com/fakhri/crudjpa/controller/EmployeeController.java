@@ -41,13 +41,19 @@ public class EmployeeController {
         return employeeService.read();
     }
 
-    @GetMapping("/find-by-name-with-spec")
-    public List<EmployeeResponse> readByParam(@RequestParam(name = "name") String name) {
-        return employeeService.findByNameList(name);
+    @GetMapping("/find-by-name-with-jpql")
+    public EmployeeResponse readEmployeeByParamNameWithJpql(@RequestParam(name = "name") String name) throws Exception {
+        return employeeService.findByName(name);
     }
 
-    @GetMapping("/find-by-name-with-sql")
-    public EmployeeResponse findEmployeeByName(@RequestParam(name = "name") String name) throws Exception {
-        return employeeService.findByName(name);
+    @GetMapping("/find-list-by-name-with-spec")
+    public List<EmployeeResponse> readEmployeeListByParamNameWithSpec(@RequestParam(name = "name") String name) {
+        return employeeService.findEmployeeListByNameWithSpec(name);
+    }
+
+    @GetMapping("/find-by-name-and-address")
+    public EmployeeResponse findByParamNameAndAddress(@RequestParam(name = "name") String name,
+                                                      @RequestParam(name = "address") String address) throws Exception {
+        return employeeService.findByNameAndAddress(name, address);
     }
 }

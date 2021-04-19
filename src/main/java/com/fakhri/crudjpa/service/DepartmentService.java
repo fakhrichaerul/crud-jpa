@@ -17,13 +17,13 @@ public interface DepartmentService {
 
     DepartmentResponse findByDepartmentName(String departmentName) throws Exception;
 
-    List<DepartmentResponse> findByDepartmentNameWithSpec(String departmentName);
+    List<DepartmentResponse> findDepartmentListByDepartmentNameWithSpec(String departmentName);
 
     DepartmentResponse findByDepartmentNameWithHql(String departmentName) throws Exception;
 
     DepartmentResponse findByDepartmentNameWithSql(String departmentName) throws Exception;
 
-    List<DepartmentResponse> searchByDepartmentNameWithHql(String departmentName);
+    List<DepartmentResponse> findDepartmentListByDepartmentNameWithHql(String departmentName);
 
-    List<DepartmentResponse> searchByDepartmentNameWithSql(String departmentName);
+    List<DepartmentResponse> findDepartmentListByDepartmentNameWithSql(String departmentName);
 }

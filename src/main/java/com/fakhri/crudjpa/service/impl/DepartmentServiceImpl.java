@@ -115,7 +115,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         return responseDto;
     }
 
-    // Membuat criteriaBuilder untuk departmentName
+    // Membuat criteriaBuilder untuk departmentName specification
     private Specification specification(String departmentName){
         return (root, criteriaQuery, criteriaBuilder) -> {
             return criteriaBuilder.equal(root.get("departmentName"), departmentName);
@@ -123,7 +123,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<DepartmentResponse> findByDepartmentNameWithSpec(String departmentName) {
+    public List<DepartmentResponse> findDepartmentListByDepartmentNameWithSpec(String departmentName) {
 
         List<Department> departments = departmentRepository.findAll(specification(departmentName));
 
@@ -141,7 +141,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentResponse findByDepartmentNameWithHql(String departmentName) throws Exception {
         Optional<Department> findByDepartmentName = departmentRepository.findByDepartmentNameWithHql(departmentName);
-
         if(findByDepartmentName.isEmpty()){
             throw new Exception("Department Name not found");
         }
@@ -155,7 +154,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentResponse findByDepartmentNameWithSql(String departmentName) throws Exception {
         Optional<Department> findByDepartmentName = departmentRepository.findByDepartmentNameWithSql(departmentName);
-
         if(findByDepartmentName.isEmpty()){
             throw new Exception("Department Name not found");
         }
@@ -167,8 +165,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<DepartmentResponse> searchByDepartmentNameWithHql(String departmentName) {
-        List<Department> departments = departmentRepository.searchByDepartmentNameWithHql(departmentName);
+    public List<DepartmentResponse> findDepartmentListByDepartmentNameWithHql(String departmentName) {
+        List<Department> departments = departmentRepository.findDepartmentListByDepartmentNameWithHql(departmentName);
 
         List<DepartmentResponse> departmentResponses = new ArrayList<>();
         departments.forEach(department -> {
@@ -182,8 +180,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<DepartmentResponse> searchByDepartmentNameWithSql(String departmentName) {
-        List<Department> departments = departmentRepository.searchByDepartmentNameWithSql(departmentName);
+    public List<DepartmentResponse> findDepartmentListByDepartmentNameWithSql(String departmentName) {
+        List<Department> departments = departmentRepository.findDepartmentListByDepartmentNameWithSql(departmentName);
 
         List<DepartmentResponse> departmentResponses = new ArrayList<>();
         departments.forEach(department -> {

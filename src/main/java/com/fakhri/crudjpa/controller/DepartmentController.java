@@ -57,18 +57,18 @@ public class DepartmentController {
         return departmentService.findByDepartmentNameWithSql(departmentName);
     }
 
-    @GetMapping("/find-by-name-with-spec")
-    public List<DepartmentResponse> findDepartmentNameWithSpec(@RequestParam(name = "departmentName") String departmentName) {
-        return departmentService.findByDepartmentNameWithSpec(departmentName);
+    @GetMapping("/find-list-by-name-with-spec")
+    public List<DepartmentResponse> findDepartmentListNameWithSpec(@RequestParam(name = "departmentName") String departmentName) {
+        return departmentService.findDepartmentListByDepartmentNameWithSpec(departmentName);
     }
 
-    @GetMapping("/search-by-name-with-hql")
+    @GetMapping("/find-list-by-name-with-hql")
     public List<DepartmentResponse> findDepartmentListByNameWithHql(@RequestParam(name = "departmentName") String departmentName) {
-        return departmentService.searchByDepartmentNameWithHql(departmentName);
+        return departmentService.findDepartmentListByDepartmentNameWithHql(departmentName);
     }
 
-    @GetMapping("/search-by-name-with-sql")
+    @GetMapping("/find-list-by-name-with-sql")
     public List<DepartmentResponse> findDepartmentListByNameWithSql(@RequestParam(name = "departmentName") String departmentName) {
-        return departmentService.searchByDepartmentNameWithHql(departmentName);
+        return departmentService.findDepartmentListByDepartmentNameWithSql(departmentName);
     }
 }

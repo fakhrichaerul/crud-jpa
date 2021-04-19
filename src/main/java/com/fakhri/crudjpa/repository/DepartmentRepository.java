@@ -26,8 +26,8 @@ public interface DepartmentRepository extends CrudRepository<Department, Integer
     List<Department> findAll(Specification<Department> specification);
 
     @Query (value = "SELECT d FROM Department d WHERE LOWER(d.departmentName) LIKE LOWER(CONCAT('%', :departmentName, '%'))")
-    List<Department> searchByDepartmentNameWithHql(@Param("departmentName") String departmentName);
+    List<Department> findDepartmentListByDepartmentNameWithHql(@Param("departmentName") String departmentName);
 
     @Query(value = "SELECT * FROM department d WHERE d.department_name iLIKE %:departmentName%", nativeQuery = true)
-    List<Department> searchByDepartmentNameWithSql(@Param("departmentName") String departmentName);
+    List<Department> findDepartmentListByDepartmentNameWithSql(@Param("departmentName") String departmentName);
 }

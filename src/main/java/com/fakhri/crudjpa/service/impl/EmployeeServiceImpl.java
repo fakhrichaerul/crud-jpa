@@ -54,7 +54,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeResponse create(EmployeeRequest employee) throws Exception {
-
         Optional<Department> findDepartment = departmentRepository.findById(employee.getDepartmentId());
         if(findDepartment.isEmpty()){
             throw new Exception("id not found");
@@ -71,7 +70,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeResponse update(Integer id, EmployeeRequest employee) throws Exception {
-
         Optional<Department> findDepartment = departmentRepository.findById(employee.getDepartmentId());
         if (findDepartment.isEmpty()){
             throw new Exception("id not found.");
@@ -82,15 +80,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (findEmployee.isEmpty()){
             throw new Exception("id not found.");
         }
-
         findEmployee.get().setName(employee.getName());
         findEmployee.get().setAddress(employee.getAddress());
         findEmployee.get().setDepartment(department);
 
         Employee savedEmployee = employeeRepository.save(findEmployee.get());
-
         DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(department);
-
         EmployeeResponse responseDto = buildEmployeeResponseFromModel(savedEmployee, departmentResponse);
 
         return responseDto;
@@ -98,34 +93,39 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void delete(Integer id) throws Exception {
-
         Optional<Employee> findEmployee = employeeRepository.findById(id);
-
         if (findEmployee.isEmpty()){
             throw new Exception("id not found.");
         }
 
         employeeRepository.delete(findEmployee.get());
-
     }
 
     @Override
     public List<EmployeeResponse> read() {
-
         Iterable<Employee> employees = employeeRepository.findAll();
-
         List<EmployeeResponse> employeeResponses = new ArrayList<>();
 
         employees.forEach(employee -> {
-
             DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(employee.getDepartment());
-
             EmployeeResponse responseDto = buildEmployeeResponseFromModel(employee, departmentResponse);
 
             employeeResponses.add(responseDto);
         });
 
         return employeeResponses;
+    }
+
+    @Override
+    public EmployeeResponse findByName(String name) throws Exception {
+        Optional<Employee> findByName = employeeRepository.findByName(name);
+        if (findByName.isEmpty()) {
+            throw new Exception("Employee name not found");
+        }
+        DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(findByName.get().getDepartment());
+        EmployeeResponse responseDto = buildEmployeeResponseFromModel(findByName.get(), departmentResponse);
+
+        return responseDto;
     }
 
     private Specification specification(String name){
@@ -135,8 +135,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeResponse> findByNameList(String name) {
-
+    public List<EmployeeResponse> findEmployeeListByNameWithSpec(String name) {
         List<Employee> employees = employeeRepository.findAll(specification(name));
 
         List<EmployeeResponse> employeeResponses = new ArrayList<>();
@@ -153,18 +152,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeResponse findByName(String name) throws Exception {
-
-        Optional<Employee> findByName = employeeRepository.findByNameWithSql(name);
-
-        if (findByName.isEmpty()) {
-            throw new Exception("Employee name not found");
+    public EmployeeResponse findByNameAndAddress(String name, String address) throws Exception {
+        Optional<Employee> findByNameAndAddress = employeeRepository.findByNameAndAddress(name, address);
+        if (findByNameAndAddress.isEmpty()) {
+            throw new Exception("name or address not found");
         }
 
-        DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(findByName.get().getDepartment());
+        DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(findByNameAndAddress.get().getDepartment());
+        EmployeeResponse response = buildEmployeeResponseFromModel(findByNameAndAddress.get(), departmentResponse);
 
-        EmployeeResponse responseDto = buildEmployeeResponseFromModel(findByName.get(), departmentResponse);
-
-        return responseDto;
+        return response;
     }
 }

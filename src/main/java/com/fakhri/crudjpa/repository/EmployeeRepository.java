@@ -19,9 +19,13 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
     Optional<Employee> findByNameWithHql(@Param("name") String name);
 
     // Query menggunakan SQL Native
-    @Query(value = "SELECT * FROM employee e WHERE e.name iLIKE %:name%", nativeQuery = true)
+    @Query(value = "SELECT * FROM employee e WHERE e.name = :name", nativeQuery = true)
     Optional<Employee> findByNameWithSql(@Param("name") String name);
 
     // Menggunakan Specification
     List<Employee> findAll(Specification<Employee> specification);
+
+//    @Query(value = "SELECT e FROM Employee e WHERE e.name = :name AND e.address = :address")
+    @Query(value = "SELECT * FROM employee e WHERE e.name = :name AND e.address = :address", nativeQuery = true)
+    Optional<Employee> findByNameAndAddress(@Param("name") String name,@Param("address") String address);
 }

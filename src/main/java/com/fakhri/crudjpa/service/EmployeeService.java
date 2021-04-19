@@ -13,9 +13,11 @@ public interface EmployeeService {
 
     void delete(Integer id) throws Exception;
 
+    EmployeeResponse findByName(String name) throws Exception;
+
     List<EmployeeResponse> read();
 
-    List<EmployeeResponse> findByNameList(String name);
+    List<EmployeeResponse> findEmployeeListByNameWithSpec(String name);
 
-    EmployeeResponse findByName(String name) throws Exception;
+    EmployeeResponse findByNameAndAddress(String name, String address) throws Exception;
 }
