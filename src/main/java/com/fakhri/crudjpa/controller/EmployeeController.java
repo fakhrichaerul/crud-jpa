@@ -1,7 +1,7 @@
 package com.fakhri.crudjpa.controller;
 
-import com.fakhri.crudjpa.dto.EmployeeRequestDto;
-import com.fakhri.crudjpa.dto.EmployeeResponseDto;
+import com.fakhri.crudjpa.dto.EmployeeRequest;
+import com.fakhri.crudjpa.dto.EmployeeResponse;
 import com.fakhri.crudjpa.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +20,13 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public EmployeeResponseDto create(@RequestBody EmployeeRequestDto requestDto) throws Exception {
+    public EmployeeResponse create(@RequestBody EmployeeRequest requestDto) throws Exception {
         return employeeService.create(requestDto);
     }
 
     @PutMapping(value = "/{id}")
-    public EmployeeResponseDto update(@PathVariable(value = "id") Integer id,
-                                      @RequestBody EmployeeRequestDto requestDto) throws Exception {
+    public EmployeeResponse update(@PathVariable(value = "id") Integer id,
+                                   @RequestBody EmployeeRequest requestDto) throws Exception {
         return employeeService.update(id, requestDto);
     }
 
@@ -37,17 +37,17 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<EmployeeResponseDto> read(){
+    public List<EmployeeResponse> read(){
         return employeeService.read();
     }
 
     @GetMapping("/find-by-name-with-spec")
-    public List<EmployeeResponseDto> readByParam(@RequestParam(name = "name") String name) {
+    public List<EmployeeResponse> readByParam(@RequestParam(name = "name") String name) {
         return employeeService.findByNameList(name);
     }
 
     @GetMapping("/find-by-name-with-sql")
-    public EmployeeResponseDto findEmployeeByName(@RequestParam(name = "name") String name) throws Exception {
+    public EmployeeResponse findEmployeeByName(@RequestParam(name = "name") String name) throws Exception {
         return employeeService.findByName(name);
     }
 }

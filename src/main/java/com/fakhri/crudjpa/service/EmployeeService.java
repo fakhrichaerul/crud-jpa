@@ -1,21 +1,21 @@
 package com.fakhri.crudjpa.service;
 
-import com.fakhri.crudjpa.dto.EmployeeRequestDto;
-import com.fakhri.crudjpa.dto.EmployeeResponseDto;
+import com.fakhri.crudjpa.dto.EmployeeRequest;
+import com.fakhri.crudjpa.dto.EmployeeResponse;
 
 import java.util.List;
 
 public interface EmployeeService {
 
-    EmployeeResponseDto create(EmployeeRequestDto employee) throws Exception;
+    EmployeeResponse create(EmployeeRequest employee) throws Exception;
 
-    EmployeeResponseDto update(Integer id, EmployeeRequestDto employee) throws Exception;
+    EmployeeResponse update(Integer id, EmployeeRequest employee) throws Exception;
 
     void delete(Integer id) throws Exception;
 
-    List<EmployeeResponseDto> read();
+    List<EmployeeResponse> read();
 
-    List<EmployeeResponseDto> findByNameList(String name);
+    List<EmployeeResponse> findByNameList(String name);
 
-    EmployeeResponseDto findByName(String name) throws Exception;
+    EmployeeResponse findByName(String name) throws Exception;
 }

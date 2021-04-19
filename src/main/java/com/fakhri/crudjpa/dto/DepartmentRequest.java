@@ -3,7 +3,7 @@ package com.fakhri.crudjpa.dto;
 import lombok.Data;
 
 @Data
-public class DepartmentRequestDto {
+public class DepartmentRequest {
 
     private String departmentName;
 }

@@ -1,21 +1,27 @@
 package com.fakhri.crudjpa.service;
 
-import com.fakhri.crudjpa.dto.DepartmentRequestDto;
-import com.fakhri.crudjpa.dto.DepartmentResponseDto;
+import com.fakhri.crudjpa.dto.DepartmentRequest;
+import com.fakhri.crudjpa.dto.DepartmentResponse;
 
 import java.util.List;
 
 public interface DepartmentService {
 
-    DepartmentResponseDto create(DepartmentRequestDto department);
+    DepartmentResponse create(DepartmentRequest department);
 
-    DepartmentResponseDto update(Integer id, DepartmentRequestDto department) throws Exception;
+    DepartmentResponse update(Integer id, DepartmentRequest department) throws Exception;
 
     void delete(Integer id) throws Exception;
 
-    List<DepartmentResponseDto> read();
+    List<DepartmentResponse> read();
 
-    List<DepartmentResponseDto> findByDepartmentNameList(String departmentName);
+    DepartmentResponse findByDepartmentName(String departmentName) throws Exception;
 
-    DepartmentResponseDto findByDepartmentName(String departmentName) throws Exception;
+    List<DepartmentResponse> findByDepartmentNameWithSpec(String departmentName);
+
+    DepartmentResponse findByDepartmentNameWithHql(String departmentName) throws Exception;
+
+    DepartmentResponse findByDepartmentNameWithSql(String departmentName) throws Exception;
+
+    List<DepartmentResponse> searchByDepartmentName(String departmentName);
 }

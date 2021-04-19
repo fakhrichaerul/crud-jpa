@@ -1,8 +1,8 @@
 package com.fakhri.crudjpa.service.impl;
 
-import com.fakhri.crudjpa.dto.DepartmentResponseDto;
-import com.fakhri.crudjpa.dto.EmployeeRequestDto;
-import com.fakhri.crudjpa.dto.EmployeeResponseDto;
+import com.fakhri.crudjpa.dto.DepartmentResponse;
+import com.fakhri.crudjpa.dto.EmployeeRequest;
+import com.fakhri.crudjpa.dto.EmployeeResponse;
 import com.fakhri.crudjpa.model.Department;
 import com.fakhri.crudjpa.model.Employee;
 import com.fakhri.crudjpa.repository.DepartmentRepository;
@@ -28,32 +28,32 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.departmentRepository = departmentRepository;
     }
 
-    private Employee buildEmployeeModelFromRequest(EmployeeRequestDto employeeRequestDto, Department department) {
+    private Employee buildEmployeeModelFromRequest(EmployeeRequest employeeRequest, Department department) {
         Employee employee = new Employee();
-        employee.setName(employeeRequestDto.getName());
-        employee.setAddress(employeeRequestDto.getAddress());
+        employee.setName(employeeRequest.getName());
+        employee.setAddress(employeeRequest.getAddress());
         employee.setDepartment(department);
         return employee;
     }
 
-    private EmployeeResponseDto buildEmployeeResponseFromModel(Employee employee, DepartmentResponseDto departmentResponseDto) {
-        EmployeeResponseDto employeeResponse = new EmployeeResponseDto();
+    private EmployeeResponse buildEmployeeResponseFromModel(Employee employee, DepartmentResponse departmentResponse) {
+        EmployeeResponse employeeResponse = new EmployeeResponse();
         employeeResponse.setId(employee.getId());
         employeeResponse.setName(employee.getName());
         employeeResponse.setAddress(employee.getAddress());
-        employeeResponse.setDepartment(departmentResponseDto);
+        employeeResponse.setDepartment(departmentResponse);
         return employeeResponse;
     }
 
-    private DepartmentResponseDto buildDepartmentResponseFromModel(Department department) {
-        DepartmentResponseDto departmentResponse = new DepartmentResponseDto();
+    private DepartmentResponse buildDepartmentResponseFromModel(Department department) {
+        DepartmentResponse departmentResponse = new DepartmentResponse();
         departmentResponse.setId(department.getId());
         departmentResponse.setDepartmentName(department.getDepartmentName());
         return departmentResponse;
     }
 
     @Override
-    public EmployeeResponseDto create(EmployeeRequestDto employee) throws Exception {
+    public EmployeeResponse create(EmployeeRequest employee) throws Exception {
 
         Optional<Department> findDepartment = departmentRepository.findById(employee.getDepartmentId());
         if(findDepartment.isEmpty()){
@@ -63,14 +63,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Employee employeeModel = buildEmployeeModelFromRequest(employee, department);
         Employee employeeResponse = employeeRepository.save(employeeModel);
-        DepartmentResponseDto departmentResponseDto = buildDepartmentResponseFromModel(department);
+        DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(department);
 
-        EmployeeResponseDto responseDto = buildEmployeeResponseFromModel(employeeModel, departmentResponseDto);
+        EmployeeResponse responseDto = buildEmployeeResponseFromModel(employeeModel, departmentResponse);
         return responseDto;
     }
 
     @Override
-    public EmployeeResponseDto update(Integer id, EmployeeRequestDto employee) throws Exception {
+    public EmployeeResponse update(Integer id, EmployeeRequest employee) throws Exception {
 
         Optional<Department> findDepartment = departmentRepository.findById(employee.getDepartmentId());
         if (findDepartment.isEmpty()){
@@ -89,9 +89,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Employee savedEmployee = employeeRepository.save(findEmployee.get());
 
-        DepartmentResponseDto departmentResponseDto = buildDepartmentResponseFromModel(department);
+        DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(department);
 
-        EmployeeResponseDto responseDto = buildEmployeeResponseFromModel(savedEmployee, departmentResponseDto);
+        EmployeeResponse responseDto = buildEmployeeResponseFromModel(savedEmployee, departmentResponse);
 
         return responseDto;
     }
@@ -110,22 +110,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeResponseDto> read() {
+    public List<EmployeeResponse> read() {
 
         Iterable<Employee> employees = employeeRepository.findAll();
 
-        List<EmployeeResponseDto> employeeResponseDtos = new ArrayList<>();
+        List<EmployeeResponse> employeeResponses = new ArrayList<>();
 
         employees.forEach(employee -> {
 
-            DepartmentResponseDto departmentResponseDto = buildDepartmentResponseFromModel(employee.getDepartment());
+            DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(employee.getDepartment());
 
-            EmployeeResponseDto responseDto = buildEmployeeResponseFromModel(employee, departmentResponseDto);
+            EmployeeResponse responseDto = buildEmployeeResponseFromModel(employee, departmentResponse);
 
-            employeeResponseDtos.add(responseDto);
+            employeeResponses.add(responseDto);
         });
 
-        return employeeResponseDtos;
+        return employeeResponses;
     }
 
     private Specification specification(String name){
@@ -135,25 +135,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeResponseDto> findByNameList(String name) {
+    public List<EmployeeResponse> findByNameList(String name) {
 
         List<Employee> employees = employeeRepository.findAll(specification(name));
 
-        List<EmployeeResponseDto> employeeResponseDtos = new ArrayList<>();
+        List<EmployeeResponse> employeeResponses = new ArrayList<>();
         employees.forEach(employee -> {
 
-            DepartmentResponseDto departmentResponseDto = buildDepartmentResponseFromModel(employee.getDepartment());
+            DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(employee.getDepartment());
 
-            EmployeeResponseDto responseDto = buildEmployeeResponseFromModel(employee, departmentResponseDto);
+            EmployeeResponse responseDto = buildEmployeeResponseFromModel(employee, departmentResponse);
 
-            employeeResponseDtos.add(responseDto);
+            employeeResponses.add(responseDto);
         });
 
-        return employeeResponseDtos;
+        return employeeResponses;
     }
 
     @Override
-    public EmployeeResponseDto findByName(String name) throws Exception {
+    public EmployeeResponse findByName(String name) throws Exception {
 
         Optional<Employee> findByName = employeeRepository.findByNameWithSql(name);
 
@@ -161,9 +161,9 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new Exception("Employee name not found");
         }
 
-        DepartmentResponseDto departmentResponseDto = buildDepartmentResponseFromModel(findByName.get().getDepartment());
+        DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(findByName.get().getDepartment());
 
-        EmployeeResponseDto responseDto = buildEmployeeResponseFromModel(findByName.get(), departmentResponseDto);
+        EmployeeResponse responseDto = buildEmployeeResponseFromModel(findByName.get(), departmentResponse);
 
         return responseDto;
     }

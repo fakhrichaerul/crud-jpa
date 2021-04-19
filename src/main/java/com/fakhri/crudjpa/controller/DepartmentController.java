@@ -1,7 +1,7 @@
 package com.fakhri.crudjpa.controller;
 
-import com.fakhri.crudjpa.dto.DepartmentRequestDto;
-import com.fakhri.crudjpa.dto.DepartmentResponseDto;
+import com.fakhri.crudjpa.dto.DepartmentRequest;
+import com.fakhri.crudjpa.dto.DepartmentResponse;
 import com.fakhri.crudjpa.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +20,13 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public DepartmentResponseDto create(@RequestBody DepartmentRequestDto requestDto) {
+    public DepartmentResponse create(@RequestBody DepartmentRequest requestDto) {
         return departmentService.create(requestDto);
     }
 
     @PutMapping(value = "/{id}")
-    public DepartmentResponseDto update(@PathVariable(value = "id") Integer id,
-                                        @RequestBody DepartmentRequestDto requestDto
+    public DepartmentResponse update(@PathVariable(value = "id") Integer id,
+                                     @RequestBody DepartmentRequest requestDto
     ) throws Exception {
         return departmentService.update(id, requestDto);
     }
@@ -38,17 +38,32 @@ public class DepartmentController {
     }
 
     @GetMapping
-    public List<DepartmentResponseDto> read() {
+    public List<DepartmentResponse> read() {
         return departmentService.read();
     }
 
-    @GetMapping("/find-by-name-with-spec")
-    public List<DepartmentResponseDto> readByParam(@RequestParam(name = "departmentName") String departmentName) {
-        return departmentService.findByDepartmentNameList(departmentName);
+    @GetMapping("/find-by-name-with-jpql")
+    public DepartmentResponse findDepartmentByNameWithJpql(@RequestParam(name = "departmentName") String departmentName) throws Exception{
+        return departmentService.findByDepartmentName(departmentName);
     }
 
     @GetMapping("/find-by-name-with-hql")
-    public  DepartmentResponseDto findDepartmentByName(@RequestParam(name = "departmentName") String departmentName) throws Exception{
-        return departmentService.findByDepartmentName(departmentName);
+    public DepartmentResponse findDepartmentByNameWithHql(@RequestParam(name = "departmentName") String departmentName) throws Exception{
+        return departmentService.findByDepartmentNameWithHql(departmentName);
+    }
+
+    @GetMapping("/find-by-name-with-sql")
+    public DepartmentResponse findDepartmentByNameWithSql(@RequestParam(name = "departmentName") String departmentName) throws Exception{
+        return departmentService.findByDepartmentNameWithSql(departmentName);
+    }
+
+    @GetMapping("/find-by-name-with-spec")
+    public List<DepartmentResponse> findDepartmentNameWithSpec(@RequestParam(name = "departmentName") String departmentName) {
+        return departmentService.findByDepartmentNameWithSpec(departmentName);
+    }
+
+    @GetMapping("/search-by-name-with-hql")
+    public List<DepartmentResponse> findDepartmentListByNameWithHql(@RequestParam(name = "departmentName") String departmentName) {
+        return departmentService.searchByDepartmentName(departmentName);
     }
 }
