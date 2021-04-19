@@ -64,6 +64,11 @@ public class DepartmentController {
 
     @GetMapping("/search-by-name-with-hql")
     public List<DepartmentResponse> findDepartmentListByNameWithHql(@RequestParam(name = "departmentName") String departmentName) {
-        return departmentService.searchByDepartmentName(departmentName);
+        return departmentService.searchByDepartmentNameWithHql(departmentName);
+    }
+
+    @GetMapping("/search-by-name-with-sql")
+    public List<DepartmentResponse> findDepartmentListByNameWithSql(@RequestParam(name = "departmentName") String departmentName) {
+        return departmentService.searchByDepartmentNameWithHql(departmentName);
     }
 }

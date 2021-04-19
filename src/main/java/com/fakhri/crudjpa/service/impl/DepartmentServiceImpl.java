@@ -167,8 +167,23 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<DepartmentResponse> searchByDepartmentName(String departmentName) {
-        List<Department> departments = departmentRepository.searchByNameWithHql(departmentName);
+    public List<DepartmentResponse> searchByDepartmentNameWithHql(String departmentName) {
+        List<Department> departments = departmentRepository.searchByDepartmentNameWithHql(departmentName);
+
+        List<DepartmentResponse> departmentResponses = new ArrayList<>();
+        departments.forEach(department -> {
+            DepartmentResponse responseDto = new DepartmentResponse();
+            responseDto.setDepartmentName(department.getDepartmentName());
+            responseDto.setId(department.getId());
+            departmentResponses.add(responseDto);
+        });
+
+        return departmentResponses;
+    }
+
+    @Override
+    public List<DepartmentResponse> searchByDepartmentNameWithSql(String departmentName) {
+        List<Department> departments = departmentRepository.searchByDepartmentNameWithSql(departmentName);
 
         List<DepartmentResponse> departmentResponses = new ArrayList<>();
         departments.forEach(department -> {

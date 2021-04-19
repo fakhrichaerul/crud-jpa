@@ -23,5 +23,7 @@ public interface DepartmentService {
 
     DepartmentResponse findByDepartmentNameWithSql(String departmentName) throws Exception;
 
-    List<DepartmentResponse> searchByDepartmentName(String departmentName);
+    List<DepartmentResponse> searchByDepartmentNameWithHql(String departmentName);
+
+    List<DepartmentResponse> searchByDepartmentNameWithSql(String departmentName);
 }
