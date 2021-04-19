@@ -13,6 +13,10 @@ public class Department {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "department_name")
     private String departmentName;
+
+    @Column(name = "quantity")
+    private Integer quantity;
 }

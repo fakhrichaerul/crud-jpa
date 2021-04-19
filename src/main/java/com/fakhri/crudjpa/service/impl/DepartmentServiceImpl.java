@@ -25,25 +25,27 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public DepartmentResponseDto create(DepartmentRequestDto department) {
+    public DepartmentResponseDto create(DepartmentRequestDto request) {
 
-        // Transform dari DTO ke Entity
+        // Transform dari Request ke Model
         Department departmentEntity = new Department();
-        departmentEntity.setDepartmentName(department.getDepartmentName());
+        departmentEntity.setDepartmentName(request.getDepartmentName());
+        departmentEntity.setQuantity(request.getQuantity());
 
         // Save to Database
-        Department departmentResponse = departmentRepository.save(departmentEntity);
+        Department savedDepartment = departmentRepository.save(departmentEntity);
 
-        // Transform dari Entity ke DTO
-        DepartmentResponseDto responseDto = new DepartmentResponseDto();
-        responseDto.setId(departmentResponse.getId());
-        responseDto.setDepartmentName(departmentResponse.getDepartmentName());
+        // Transform dari Model ke Response
+        DepartmentResponseDto response = new DepartmentResponseDto();
+        response.setId(savedDepartment.getId());
+        response.setDepartmentName(savedDepartment.getDepartmentName());
+        response.setQuantity(savedDepartment.getQuantity());
 
-        return responseDto;
+        return response;
     }
 
     @Override
-    public DepartmentResponseDto update(Integer id, DepartmentRequestDto department) throws Exception {
+    public DepartmentResponseDto update(Integer id, DepartmentRequestDto request) throws Exception {
 
         // Get data by id
         Optional<Department> findDepartment = departmentRepository.findById(id);
@@ -55,14 +57,16 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         // Jika id ditemukan
         // set data lama ke data baru
-        findDepartment.get().setDepartmentName(department.getDepartmentName());
+        findDepartment.get().setDepartmentName(request.getDepartmentName());
+        findDepartment.get().setQuantity(request.getQuantity());
         Department savedDepartment = departmentRepository.save(findDepartment.get());
 
-        DepartmentResponseDto responseDto = new DepartmentResponseDto();
-        responseDto.setId(savedDepartment.getId());
-        responseDto.setDepartmentName(savedDepartment.getDepartmentName());
+        DepartmentResponseDto response = new DepartmentResponseDto();
+        response.setId(savedDepartment.getId());
+        response.setDepartmentName(savedDepartment.getDepartmentName());
+        response.setQuantity(savedDepartment.getQuantity());
 
-        return responseDto;
+        return response;
     }
 
     @Override
@@ -91,11 +95,12 @@ public class DepartmentServiceImpl implements DepartmentService {
         // Feeding data / transform data dari entity ke DTO
         departments.forEach(department -> {
 
-            DepartmentResponseDto responseDto = new DepartmentResponseDto();
-            responseDto.setId(department.getId());
-            responseDto.setDepartmentName(department.getDepartmentName());
+            DepartmentResponseDto response = new DepartmentResponseDto();
+            response.setId(department.getId());
+            response.setDepartmentName(department.getDepartmentName());
+            response.setQuantity(department.getQuantity());
 
-            departmentResponseDtos.add(responseDto);
+            departmentResponseDtos.add(response);
         });
 
         return departmentResponseDtos;
@@ -118,6 +123,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             DepartmentResponseDto responseDto = new DepartmentResponseDto();
             responseDto.setDepartmentName(department.getDepartmentName());
             responseDto.setId(department.getId());
+            responseDto.setQuantity(department.getQuantity());
             departmentResponseDtos.add(responseDto);
         });
 
@@ -136,6 +142,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         DepartmentResponseDto responseDto = new DepartmentResponseDto();
         responseDto.setDepartmentName(findByDepartmentName.get().getDepartmentName());
         responseDto.setId(findByDepartmentName.get().getId());
+        responseDto.setQuantity(findByDepartmentName.get().getQuantity());
 
         return responseDto;
     }

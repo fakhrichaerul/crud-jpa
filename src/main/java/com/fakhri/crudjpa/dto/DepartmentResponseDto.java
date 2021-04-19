@@ -7,4 +7,5 @@ public class DepartmentResponseDto {
 
     private Integer id;
     private String departmentName;
+    private Integer quantity;
 }

@@ -9,4 +9,5 @@ public class EmployeeResponseDto {
     private String name;
     private String address;
     private DepartmentResponseDto department;
+    private Integer departmentQuantity;
 }
