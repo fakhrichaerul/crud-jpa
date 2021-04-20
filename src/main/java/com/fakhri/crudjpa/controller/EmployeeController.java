@@ -62,4 +62,10 @@ public class EmployeeController {
                                                                    @RequestParam(name = "address") String address) {
         return employeeService.findEmployeeListByNameAndAddress(name, address);
     }
+
+    @GetMapping("/find-list-by-name-and-departmentName")
+    public List<EmployeeResponse> findEmployeeListByNameAndDepartmentName(@RequestParam(name = "name") String name,
+                                                                          @RequestParam(name = "departmentName") String departmentName) {
+        return employeeService.findEmployeeListByNameAndDepartmentName(name, departmentName);
+    }
 }

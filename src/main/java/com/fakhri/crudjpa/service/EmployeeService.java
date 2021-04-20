@@ -22,4 +22,6 @@ public interface EmployeeService {
     EmployeeResponse findByNameAndAddress(String name, String address) throws Exception;
 
     List<EmployeeResponse> findEmployeeListByNameAndAddress(String name, String address);
+
+    List<EmployeeResponse> findEmployeeListByNameAndDepartmentName(String name, String departmentName);
 }

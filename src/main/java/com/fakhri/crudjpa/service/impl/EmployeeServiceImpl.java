@@ -178,4 +178,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return employeeResponses;
     }
+
+    @Override
+    public List<EmployeeResponse> findEmployeeListByNameAndDepartmentName(String name, String departmentName) {
+        List<Employee> employees = employeeRepository.findEmployeeListByNameAndDepartmentName(name, departmentName);
+        List<EmployeeResponse> employeeResponses = new ArrayList<>();
+
+        employees.forEach(employee -> {
+
+            DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(employee.getDepartment());
+            EmployeeResponse responseDto = buildEmployeeResponseFromModel(employee, departmentResponse);
+
+            employeeResponses.add(responseDto);
+        });
+
+        return employeeResponses;
+    }
 }
