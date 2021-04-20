@@ -2,6 +2,7 @@ package com.fakhri.crudjpa.service;
 
 import com.fakhri.crudjpa.dto.EmployeeRequest;
 import com.fakhri.crudjpa.dto.EmployeeResponse;
+import com.fakhri.crudjpa.model.Employee;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public interface EmployeeService {
     EmployeeResponse findByNameAndAddress(String name, String address) throws Exception;
 
     List<EmployeeResponse> findEmployeeListByNameAndAddress(String name, String address);
+
+    EmployeeResponse findByNameAndDepartmentName(String name, String departmentName) throws Exception;
 
     List<EmployeeResponse> findEmployeeListByNameAndDepartmentName(String name, String departmentName);
 }

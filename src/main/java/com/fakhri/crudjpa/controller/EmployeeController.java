@@ -52,7 +52,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/find-by-name-and-address")
-    public EmployeeResponse findByParamNameAndAddress(@RequestParam(name = "name") String name,
+    public EmployeeResponse findEmployeeByNameAndAddress(@RequestParam(name = "name") String name,
                                                       @RequestParam(name = "address") String address) throws Exception {
         return employeeService.findByNameAndAddress(name, address);
     }
@@ -61,6 +61,12 @@ public class EmployeeController {
     public List<EmployeeResponse> findEmployeeListByNameAndAddress(@RequestParam(name = "name") String name,
                                                                    @RequestParam(name = "address") String address) {
         return employeeService.findEmployeeListByNameAndAddress(name, address);
+    }
+
+    @GetMapping("/find-by-name-and-departmentName")
+    public EmployeeResponse findEmployeeByNameAndDepartmentName(@RequestParam(name = "name")String name,
+                                                         @RequestParam(name = "departmentName")String departmentName) throws Exception {
+        return employeeService.findByNameAndDepartmentName(name, departmentName);
     }
 
     @GetMapping("/find-list-by-name-and-departmentName")

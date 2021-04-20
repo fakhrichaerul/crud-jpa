@@ -40,7 +40,11 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
             "LOWER(e.address) LIKE LOWER(CONCAT('%', :address, '%'))")
     List<Employee> findEmployeeListByNameAndAddress(@Param("name") String name,@Param("address") String address);
 
-
+//    @Query(value = "SELECT * FROM employee e LEFT JOIN department d ON d.id = e.department_id WHERE " +
+//            "e.name = :name AND d.department_name = :departmentName", nativeQuery = true)
+    @Query(value = "SELECT e FROM Employee e LEFT JOIN FETCH e.department WHERE " +
+            "e.name = :name AND e.department.departmentName = :departmentName")
+    Optional<Employee> findByNameAndDepartmentName(@Param("name") String name,@Param("departmentName") String departmentName);
 
 //    @Query(value = "SELECT * FROM employee e LEFT JOIN department d ON d.id = e.department_id WHERE " +
 //            "e.name iLIKE %:name% OR " +

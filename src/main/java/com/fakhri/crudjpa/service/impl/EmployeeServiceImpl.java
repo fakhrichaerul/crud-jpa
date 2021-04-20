@@ -180,6 +180,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public EmployeeResponse findByNameAndDepartmentName(String name, String departmentName) throws Exception {
+        Optional<Employee> findByNameAndDepartmentName = employeeRepository.findByNameAndDepartmentName(name, departmentName);
+        if (findByNameAndDepartmentName.isEmpty()) {
+            throw new Exception("name or departmentName not found");
+        }
+
+        DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(findByNameAndDepartmentName.get().getDepartment());
+        EmployeeResponse response = buildEmployeeResponseFromModel(findByNameAndDepartmentName.get(), departmentResponse);
+
+        return response;
+    }
+
+    @Override
     public List<EmployeeResponse> findEmployeeListByNameAndDepartmentName(String name, String departmentName) {
         List<Employee> employees = employeeRepository.findEmployeeListByNameAndDepartmentName(name, departmentName);
         List<EmployeeResponse> employeeResponses = new ArrayList<>();
