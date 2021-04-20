@@ -25,21 +25,21 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public DepartmentResponse create(DepartmentRequest department) {
+    public DepartmentResponse create(DepartmentRequest request) {
 
-        // Transform dari DTO ke Entity
-        Department departmentEntity = new Department();
-        departmentEntity.setDepartmentName(department.getDepartmentName());
+        // Transform dari Request ke Model
+        Department department = new Department();
+        department.setDepartmentName(request.getDepartmentName());
 
         // Save to Database
-        Department departmentResponse = departmentRepository.save(departmentEntity);
+        Department savedDepartment = departmentRepository.save(department);
 
-        // Transform dari Entity ke DTO
-        DepartmentResponse responseDto = new DepartmentResponse();
-        responseDto.setId(departmentResponse.getId());
-        responseDto.setDepartmentName(departmentResponse.getDepartmentName());
+        // Transform dari Model ke Response
+        DepartmentResponse response = new DepartmentResponse();
+        response.setId(savedDepartment.getId());
+        response.setDepartmentName(savedDepartment.getDepartmentName());
 
-        return responseDto;
+        return response;
     }
 
     @Override
