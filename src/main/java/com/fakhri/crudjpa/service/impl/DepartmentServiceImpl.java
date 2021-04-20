@@ -86,7 +86,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         Iterable<Department> departments = departmentRepository.findAll();
 
         // Tampungan responsenya
-        List<DepartmentResponse> departmentResponses = new ArrayList<>();
+        List<DepartmentResponse> responseList = new ArrayList<>();
 
         // Feeding data / transform data dari entity ke DTO
         departments.forEach(department -> {
@@ -95,10 +95,10 @@ public class DepartmentServiceImpl implements DepartmentService {
             response.setId(department.getId());
             response.setDepartmentName(department.getDepartmentName());
 
-            departmentResponses.add(response);
+            responseList.add(response);
         });
 
-        return departmentResponses;
+        return responseList;
     }
 
     @Override
