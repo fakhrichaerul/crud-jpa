@@ -20,4 +20,6 @@ public interface EmployeeService {
     List<EmployeeResponse> findEmployeeListByNameWithSpec(String name);
 
     EmployeeResponse findByNameAndAddress(String name, String address) throws Exception;
+
+    List<EmployeeResponse> findEmployeeListByNameAndAddress(String name, String address);
 }

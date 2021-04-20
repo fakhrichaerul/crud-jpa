@@ -137,12 +137,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeResponse> findEmployeeListByNameWithSpec(String name) {
         List<Employee> employees = employeeRepository.findAll(specification(name));
-
         List<EmployeeResponse> employeeResponses = new ArrayList<>();
+
         employees.forEach(employee -> {
 
             DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(employee.getDepartment());
-
             EmployeeResponse responseDto = buildEmployeeResponseFromModel(employee, departmentResponse);
 
             employeeResponses.add(responseDto);
@@ -162,5 +161,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeResponse response = buildEmployeeResponseFromModel(findByNameAndAddress.get(), departmentResponse);
 
         return response;
+    }
+
+    @Override
+    public List<EmployeeResponse> findEmployeeListByNameAndAddress(String name, String address) {
+        List<Employee> employees = employeeRepository.findEmployeeListByNameAndAddress(name, address);
+        List<EmployeeResponse> employeeResponses = new ArrayList<>();
+
+        employees.forEach(employee -> {
+
+            DepartmentResponse departmentResponse = buildDepartmentResponseFromModel(employee.getDepartment());
+            EmployeeResponse responseDto = buildEmployeeResponseFromModel(employee, departmentResponse);
+
+            employeeResponses.add(responseDto);
+        });
+
+        return employeeResponses;
     }
 }

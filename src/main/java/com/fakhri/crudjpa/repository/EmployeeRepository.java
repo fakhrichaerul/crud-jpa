@@ -18,14 +18,26 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
     @Query(value = "SELECT e FROM Employee e WHERE e.name = :name")
     Optional<Employee> findByNameWithHql(@Param("name") String name);
 
-    // Query menggunakan SQL Native
+    // Query menggunakan Native SQL
     @Query(value = "SELECT * FROM employee e WHERE e.name = :name", nativeQuery = true)
     Optional<Employee> findByNameWithSql(@Param("name") String name);
 
     // Menggunakan Specification
     List<Employee> findAll(Specification<Employee> specification);
 
-//    @Query(value = "SELECT e FROM Employee e WHERE e.name = :name AND e.address = :address")
-    @Query(value = "SELECT * FROM employee e WHERE e.name = :name AND e.address = :address", nativeQuery = true)
+
+
+//    Uncomment untuk menggunakan salah satu query Native SQL (PostgreSql) atau HQL
+
+//    @Query(value = "SELECT * FROM employee e WHERE e.name = :name AND e.address = :address", nativeQuery = true)
+    @Query(value = "SELECT e FROM Employee e WHERE e.name = :name AND e.address = :address")
     Optional<Employee> findByNameAndAddress(@Param("name") String name,@Param("address") String address);
+
+//    @Query(value = "SELECT * FROM Employee e WHERE " +
+//            "e.name iLIKE %:name% OR " +
+//            "e.address iLIKE %:address%", nativeQuery = true)
+    @Query(value = "SELECT e FROM Employee e WHERE " +
+            "LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%')) OR " +
+            "LOWER(e.address) LIKE LOWER(CONCAT('%', :address, '%'))")
+    List<Employee> findEmployeeListByNameAndAddress(@Param("name") String name,@Param("address") String address);
 }
