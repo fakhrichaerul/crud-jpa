@@ -58,11 +58,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         findDepartment.get().setDepartmentName(department.getDepartmentName());
         Department savedDepartment = departmentRepository.save(findDepartment.get());
 
-        DepartmentResponse responseDto = new DepartmentResponse();
-        responseDto.setId(savedDepartment.getId());
-        responseDto.setDepartmentName(savedDepartment.getDepartmentName());
+        DepartmentResponse response = new DepartmentResponse();
+        response.setId(savedDepartment.getId());
+        response.setDepartmentName(savedDepartment.getDepartmentName());
 
-        return responseDto;
+        return response;
     }
 
     @Override
@@ -91,11 +91,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         // Feeding data / transform data dari entity ke DTO
         departments.forEach(department -> {
 
-            DepartmentResponse responseDto = new DepartmentResponse();
-            responseDto.setId(department.getId());
-            responseDto.setDepartmentName(department.getDepartmentName());
+            DepartmentResponse response = new DepartmentResponse();
+            response.setId(department.getId());
+            response.setDepartmentName(department.getDepartmentName());
 
-            departmentResponses.add(responseDto);
+            departmentResponses.add(response);
         });
 
         return departmentResponses;
@@ -108,11 +108,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         if(findByDepartmentName.isEmpty()){
             throw new Exception("Department Name not found");
         }
-        DepartmentResponse responseDto = new DepartmentResponse();
-        responseDto.setDepartmentName(findByDepartmentName.get().getDepartmentName());
-        responseDto.setId(findByDepartmentName.get().getId());
+        DepartmentResponse response = new DepartmentResponse();
+        response.setDepartmentName(findByDepartmentName.get().getDepartmentName());
+        response.setId(findByDepartmentName.get().getId());
 
-        return responseDto;
+        return response;
     }
 
     // Membuat criteriaBuilder untuk departmentName specification
@@ -127,15 +127,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         List<Department> departments = departmentRepository.findAll(specification(departmentName));
 
-        List<DepartmentResponse> departmentResponses = new ArrayList<>();
+        List<DepartmentResponse> responseList = new ArrayList<>();
         departments.forEach(department -> {
-            DepartmentResponse responseDto = new DepartmentResponse();
-            responseDto.setDepartmentName(department.getDepartmentName());
-            responseDto.setId(department.getId());
-            departmentResponses.add(responseDto);
+            DepartmentResponse response = new DepartmentResponse();
+            response.setDepartmentName(department.getDepartmentName());
+            response.setId(department.getId());
+            responseList.add(response);
         });
 
-        return departmentResponses;
+        return responseList;
     }
 
     @Override
@@ -144,11 +144,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         if(findByDepartmentName.isEmpty()){
             throw new Exception("Department Name not found");
         }
-        DepartmentResponse responseDto = new DepartmentResponse();
-        responseDto.setDepartmentName(findByDepartmentName.get().getDepartmentName());
-        responseDto.setId(findByDepartmentName.get().getId());
+        DepartmentResponse response = new DepartmentResponse();
+        response.setDepartmentName(findByDepartmentName.get().getDepartmentName());
+        response.setId(findByDepartmentName.get().getId());
 
-        return responseDto;
+        return response;
     }
 
     @Override
@@ -157,40 +157,40 @@ public class DepartmentServiceImpl implements DepartmentService {
         if(findByDepartmentName.isEmpty()){
             throw new Exception("Department Name not found");
         }
-        DepartmentResponse responseDto = new DepartmentResponse();
-        responseDto.setDepartmentName(findByDepartmentName.get().getDepartmentName());
-        responseDto.setId(findByDepartmentName.get().getId());
+        DepartmentResponse response = new DepartmentResponse();
+        response.setDepartmentName(findByDepartmentName.get().getDepartmentName());
+        response.setId(findByDepartmentName.get().getId());
 
-        return responseDto;
+        return response;
     }
 
     @Override
     public List<DepartmentResponse> findDepartmentListByDepartmentNameWithHql(String departmentName) {
         List<Department> departments = departmentRepository.findDepartmentListByDepartmentNameWithHql(departmentName);
 
-        List<DepartmentResponse> departmentResponses = new ArrayList<>();
+        List<DepartmentResponse> responseList = new ArrayList<>();
         departments.forEach(department -> {
-            DepartmentResponse responseDto = new DepartmentResponse();
-            responseDto.setDepartmentName(department.getDepartmentName());
-            responseDto.setId(department.getId());
-            departmentResponses.add(responseDto);
+            DepartmentResponse response = new DepartmentResponse();
+            response.setDepartmentName(department.getDepartmentName());
+            response.setId(department.getId());
+            responseList.add(response);
         });
 
-        return departmentResponses;
+        return responseList;
     }
 
     @Override
     public List<DepartmentResponse> findDepartmentListByDepartmentNameWithSql(String departmentName) {
         List<Department> departments = departmentRepository.findDepartmentListByDepartmentNameWithSql(departmentName);
 
-        List<DepartmentResponse> departmentResponses = new ArrayList<>();
+        List<DepartmentResponse> responseList = new ArrayList<>();
         departments.forEach(department -> {
-            DepartmentResponse responseDto = new DepartmentResponse();
-            responseDto.setDepartmentName(department.getDepartmentName());
-            responseDto.setId(department.getId());
-            departmentResponses.add(responseDto);
+            DepartmentResponse response = new DepartmentResponse();
+            response.setDepartmentName(department.getDepartmentName());
+            response.setId(department.getId());
+            responseList.add(response);
         });
 
-        return departmentResponses;
+        return responseList;
     }
 }
