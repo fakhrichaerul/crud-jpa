@@ -1,4 +1,4 @@
-# Aplikasi Crud Spring Data JPA
+# Aplikasi Crud Spring Data JPA With Custom Query HQL and Native SQL
 
 Cara menjalankan :
 
@@ -15,7 +15,7 @@ Cara menjalankan :
     mvn spring-boot:run
     ```
 
-3. Documentasi Rest API dapat dilihat di url :
+3. Dokumentasi Rest API dapat diakses di url :
 
    ```
    http://localhost:8080/swagger-ui.html
