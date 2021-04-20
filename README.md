@@ -1,6 +1,13 @@
 # Aplikasi Crud Spring Data JPA With Custom Query HQL and Native SQL
 
-Cara menjalankan :
+Features :
+
+    • CRUD employee
+    • CRUD department
+    • Basic custom query native SQL and HQL on employee
+    • Advanced custom query native SQL and HQL on department (JOIN, LIKE)
+
+Quickstart :
 
 1. Jalankan `docker-compose.yml` di root project ini terlebih dahulu untuk membuat container database yang sesuai dengan username, password
    dan database di `application.properties`
